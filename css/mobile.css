@@ -1,0 +1,183 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 62.5%;
+  font-family: "Roboto", sans-serif;
+}
+
+header {
+  width: 100%;
+  height: 10vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #a31acb;
+}
+
+.header-title {
+  color: white;
+  font-size: 2.2rem;
+}
+
+main {
+  height: 90vh;
+  background-color: #ececec;
+}
+
+main .container-imgs-pet {
+  display: flex;
+  height: 90%;
+  flex-direction: column;
+  gap: 20px;
+  margin: 0 16px;
+  justify-content: center;
+  align-items: center;
+}
+
+main .subtitle {
+  font-size: 2.4rem;
+  color: #ff78f0;
+}
+
+main .cards-pets {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+main .cards-pets .card-pet {
+  min-width: 100px;
+  min-height: 100px;
+  display: flex;
+  padding: 8px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  text-align: center;
+  border: 2px solid #a31acb;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+main .card-pet label {
+  font-size: 1.6rem;
+}
+
+main .cards-pets .card-pet img {
+  width: 80px;
+}
+
+main .container-imgs-pet button {
+  width: 180px;
+  height: 50px;
+  font-size: 1.6rem;
+  font-weight: 900;
+  border: none;
+  border-radius: 20px;
+  background-color: #a31acb;
+  color: wheat;
+  cursor: pointer;
+}
+
+main .container-attack {
+  display: none;
+  height: 100%;
+  flex-direction: column;
+  padding-top: 16px;
+  gap: 10px;
+  align-items: center;
+  font-size: 1.2rem;
+}
+
+main .container-attack .btns-attack {
+  display: grid;
+  gap: 10px;
+}
+
+main .container-attack .btns-attack .btn-attack {
+  min-width: 200px;
+  min-height: 60px;
+  font-size: 2rem;
+  font-weight: 900;
+  border: none;
+  border-radius: 20px;
+  background-color: #a31acb;
+  color: wheat;
+  cursor: pointer;
+}
+
+main .restart-game {
+  min-width: 250px;
+  min-height: 50px;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  border: 2px solid #a31acb;
+  border-radius: 15px;
+}
+
+main .restart-game .message-end {
+  font-size: 1.6rem;
+  text-align: center;
+}
+
+main .restart-game button {
+  display: none;
+  margin-top: 10px;
+  min-width: 120px;
+  height: 50px;
+  font-size: 1.6rem;
+  font-weight: 900;
+  border: none;
+  border-radius: 20px;
+  background-color: #f273e6;
+  color: wheat;
+  cursor: pointer;
+}
+
+main .cards-attacks {
+  min-width: 300px;
+  min-height: 200px;
+  display: flex;
+  justify-content: space-evenly;
+  gap: 20px;
+}
+
+main .card-attack {
+  min-width: 140px;
+  display: flex;
+  flex-direction: column;
+  padding: 8px;
+  gap: 10px;
+  align-items: center;
+  border: 3px solid #a31acb;
+}
+
+main .card-attack h3 {
+  font-size: 1.8rem;
+}
+
+main .card-attack h2 {
+  font-size: 1.4rem;
+  font-weight: bold;
+}
+
+main .card-attack .result {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+main .card-attack .result-attack {
+  font-size: 1.2rem;
+}

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mokepon</title>
+    <link rel="stylesheet" href="css/mobile.css">
+    <link rel="stylesheet" href="./css/style.css" media="screen and (min-width:700px)">
+    <script src="./js/mokepon.js"></script>
+</head>
+<body>
+    <header>
+        <h1 class="header-title">MOKEPON 🔥 🌊 🗺 !</h1>
+    </header>
+    <main>
+        <section id="select-pet" class="container-imgs-pet">
+            <h2 class="subtitle">Elige a tu mascota</h2>
+            <div class="cards-pets">
+                <div class="card-pet">
+                    <img src="imgs/audino.png" alt="mascota Audino" />
+                    <label for="audino">Audino</label>
+                    <input type="radio" name="pet" id="audino" />
+                </div>
+                <div class="card-pet">
+                    <img src="imgs/bellossom.png" alt="mascota Bellossom">
+                    <label for="bellossom">Bellossom</label>
+                    <input type="radio" name="pet" id="bellossom" />
+                </div>
+                <div class="card-pet">
+                    <img src="imgs/bounsweet.jpg" alt="mascota Bounsweet">
+                    <label for="bounsweet">Bounsweet</label>
+                    <input type="radio" name="pet" id="bounsweet" />
+                </div>
+                <div class="card-pet">
+                    <img src="imgs/celebi.png" alt="mascota Celebi">
+                    <label for="celebi">Celebi</label>
+                    <input type="radio" name="pet" id="celebi" />
+                </div>
+                <div class="card-pet">
+                    <img src="imgs/chansey.gif" alt="mascota Chansey">
+                    <label for="chansey">Chansey</label>
+                    <input type="radio" name="pet" id="chansey">
+                </div>
+                <div class="card-pet">
+                    <img src="imgs/charmander.png" alt="mascota Charmander">
+                    <label for="charmander">Charmander</label>
+                    <input type="radio" name="pet" id="charmander">
+                </div>
+            </div>
+            <button id="btn-pet">Seleccionar</button>
+        </section>
+        <section id="select-attack" class="container-attack">
+            <h2 class="subtitle">Elige tu ataque:</h2>
+            <div class="btns-attack">
+                <button class="btn-attack" id="button-fire">Fuego 🔥</button>
+                <button class="btn-attack" id="button-water">Agua 🌊 </button>
+                <button class="btn-attack" id="button-earth">Tierra 🗺 </button>
+            </div>
+            <div id="result-restart" class="restart-game">
+                <section class="container-messages">
+                    <p id="message-end-attack" class="message-end"></p>
+                </section>
+                <section class="section-restart">
+                    <button id="btn-restart">Reiniciar</button>
+                </section>
+            </div>
+            <div class="cards-attacks">
+                <div class="card-attack">
+                    <h3 id="lives-pet-player"></h3>
+                    <h2>Jugador: <span id="name-pet-player"></span></h2>
+                    <span id="attacks-player" class="result"></span>
+                </div>
+                <div class="card-attack">
+                    <h3 id="lives-pet-enemy"></h3>
+                    <h2>Enemigo: <span id="name-pet-enemy"></span></h2>
+                    <span id="attacks-enemy" class="result"></span>
+                </div>
+            </div>
+        </section>
+    </main>
+</body>
+</html>

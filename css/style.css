@@ -1,0 +1,7 @@
+main .cards-pets .card-pet img {
+  width: 150px;
+}
+
+main .container-attack .btns-attack {
+  display: flex;
+}
