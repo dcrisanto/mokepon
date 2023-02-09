@@ -1,21 +1,51 @@
+//botón para seleccionar mascota
+const btnPet = document.getElementById('btn-pet');
+//botones para ataque
+const btnFire = document.getElementById('button-fire');
+const btnWater = document.getElementById('button-water');
+const btnEarth = document.getElementById('button-earth');
+//sección de reiniciar
+const sectionRestart = document.querySelector('.section-restart');
+//botón para reiniciar juego
+const btnRestart = document.getElementById('btn-restart');
+
+//mokepons
+const audino = document.getElementById('audino');
+const bellossom = document.getElementById('bellossom');
+const bounsweet = document.getElementById('bounsweet');
+const celebi = document.getElementById('celebi');
+const chansey = document.getElementById('chansey');
+const charmander = document.getElementById('charmander');
+
+//Contenedores para seleccionar mascota y ataque respectivamente
+const containerSelectPet = document.getElementById('select-pet');
+const containerSelectAttack = document.getElementById('select-attack');
+
+//Nombre mascota del juegador y del enemigo
+const playerNamePet = document.getElementById('name-pet-player');
+const enemyNamePet = document.getElementById('name-pet-enemy');
+//Vidas del jugador y enemigo respectivamente
+const spanLivesPetPlayer = document.getElementById('lives-pet-player');
+const spanLivesPetEnemy = document.getElementById('lives-pet-enemy');
+
+const containerResultRestart = document.getElementById('result-restart');
+const resultAttack = document.getElementById('message-end-attack');
+const attacksPlayer = document.getElementById('attacks-player');
+const attacksEnemy = document.getElementById('attacks-enemy');
+const containerMessageEnd = document.getElementById('message-end-attack');
+
+
 let attackPlayer;
 let attackEnemy;
-let attack = ['FUEGO', 'AGUA', 'TIERRA'];
+const attack = ['FUEGO', 'AGUA', 'TIERRA'];
 let livesPetPlayer = 3;
 let livesPetEnemy = 3;
 
 function startPlay() {
-  let btnPet = document.getElementById('btn-pet');
   btnPet.addEventListener('click', selectPlayerPet);
-
-  let btnFire = document.getElementById('button-fire');
   btnFire.addEventListener('click', attackFire);
-  let btnWater = document.getElementById('button-water');
   btnWater.addEventListener('click', attackWater);
-  let btnEarth = document.getElementById('button-earth');
   btnEarth.addEventListener('click', attackEarth);
-
-  let btnRestart = document.getElementById('btn-restart');
   btnRestart.addEventListener('click', restart)
 }
 
@@ -30,17 +60,7 @@ function selectPlayerPet() {
     name: '',
     power: ''
   }
-  let audino = document.getElementById('audino');
-  let bellossom = document.getElementById('bellossom');
-  let bounsweet = document.getElementById('bounsweet');
-  let celebi = document.getElementById('celebi');
-  let chansey = document.getElementById('chansey');
-  let charmander = document.getElementById('charmander');
-  let playerNamePet = document.getElementById('name-pet-player');
-  let spanLivesPetPlayer = document.getElementById('lives-pet-player');
-  let containerSelectAttack = document.getElementById('select-attack');
-  let containerSelectPet = document.getElementById('select-pet');
-
+ 
   let pets = [
     {
       name: 'audino',
@@ -73,7 +93,7 @@ function selectPlayerPet() {
       power: 'tierra y fuego'
     }
   ]
- 
+
   const elementSelect = pets.filter(item => item.state == true);
 
   if(elementSelect.length == 0) {
@@ -84,7 +104,7 @@ function selectPlayerPet() {
   containerSelectPet.style.display = 'none';
   containerSelectAttack.style.display = 'flex';
   
-  const datePetSelect = elementSelect.map(item => {
+  elementSelect.map(item => {
       petPlayer.name = item.name;
       petPlayer.power = item.power;
   });
@@ -98,30 +118,9 @@ function selectPlayerPet() {
 function selectEnemyPet(pets) {
   let min = 0;
   let max = pets.length -1;
-  let enemyNamePet = document.getElementById('name-pet-enemy');
-  let spanLivesPetEnemy = document.getElementById('lives-pet-enemy');
   let petSelectRandom = pets[randomNumber(min, max)];
   enemyNamePet.innerText = petSelectRandom.name;
   spanLivesPetEnemy.innerText = livesPetEnemy;
-}
-
-function createMessages(result) {
-  let containerResultRestart = document.getElementById('result-restart');
-  let resultAttack = document.getElementById('message-end-attack');
-  let attacksPlayer = document.getElementById('attacks-player');
-  let attacksEnemy = document.getElementById('attacks-enemy');
-  containerResultRestart.style.display = 'flex';
-  attacksPlayer.style.display = 'flex';
-  attacksEnemy.style.display = 'flex';
-  let attackPlayerSelect = document.createElement('p');
-  attackPlayerSelect.classList.add('result-attack');
-  attackPlayerSelect.innerText = `${attackPlayer}`;
-  attacksPlayer.appendChild(attackPlayerSelect);
-  let attackEnemyRandom = document.createElement('p');
-  attackEnemyRandom.classList.add('result-attack');
-  attackEnemyRandom.innerText = `${attackEnemy}`;
-  attacksEnemy.appendChild(attackEnemyRandom);
-  resultAttack.innerText = result;
 }
 
 function attackFire(){
@@ -148,8 +147,6 @@ function attackRandomEnemy() {
 }
 
 function combat() {
-  let spanLivesPetPlayer = document.getElementById('lives-pet-player');
-  let spanLivesPetEnemy = document.getElementById('lives-pet-enemy');
   let result;
 
     if(attackPlayer == attackEnemy){
@@ -177,30 +174,38 @@ function combat() {
   
 }
 
+function createMessages(result) {
+  containerResultRestart.style.display = 'flex';
+  attacksPlayer.style.display = 'flex';
+  attacksEnemy.style.display = 'flex';
+  let attackPlayerSelect = document.createElement('p');
+  attackPlayerSelect.classList.add('result-attack');
+  attackPlayerSelect.innerText = `${attackPlayer}`;
+  attacksPlayer.appendChild(attackPlayerSelect);
+  let attackEnemyRandom = document.createElement('p');
+  attackEnemyRandom.classList.add('result-attack');
+  attackEnemyRandom.innerText = `${attackEnemy}`;
+  attacksEnemy.appendChild(attackEnemyRandom);
+  resultAttack.innerText = result;
+}
+
 function reviewLives() {
-  let resultRestart = document.getElementById('result-restart');
   if(livesPetPlayer == 0){
     messageEnd('LO SIENTO PERDISTE');
-    resultRestart.style.display = 'flex';
+    containerMessageEnd.style.display = 'flex';
   } else if(livesPetEnemy == 0){
     messageEnd('FELICITACIONES GANASTE');
-    resultRestart.style.display = 'flex';
+    containerMessageEnd.style.display = 'flex';
   }
 }
 
 function messageEnd(result) {
-  let containerMessageEnd = document.getElementById('message-end-attack');
-  let btnRestart = document.getElementById('btn-restart');
-  let btnPet = document.getElementById('btn-pet');
   btnPet.disabled = true;
-  let btnFire = document.getElementById('button-fire');
   btnFire.disabled = true;
-  let btnWater = document.getElementById('button-water');
   btnWater.disabled = true;
-  let btnEarth = document.getElementById('button-earth');
   btnEarth.disabled = true;
   containerMessageEnd.innerText = `¡${result} EL JUEGO!`;
-  btnRestart.style.display = 'block';
+  sectionRestart.classList.add('show');
 }
 
 function restart(){

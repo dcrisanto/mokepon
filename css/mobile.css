@@ -130,8 +130,11 @@ main .restart-game .message-end {
   text-align: center;
 }
 
-main .restart-game button {
+.section-restart {
   display: none;
+}
+
+main .restart-game button {
   margin-top: 10px;
   min-width: 120px;
   height: 50px;
@@ -180,4 +183,8 @@ main .card-attack .result {
 
 main .card-attack .result-attack {
   font-size: 1.2rem;
+}
+
+.show {
+  display: block;
 }
