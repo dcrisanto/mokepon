@@ -45,6 +45,7 @@ let sequenceAttackPlayer = [];
 let attackPlayer;
 let optionsAttack;
 let victoriesPlayer = 0;
+let powerMokeponPlayer;
 
 //mokepon del enemigo
 let mokeponEnemy;
@@ -52,6 +53,7 @@ let attacksMokeponEnemy = [];
 let sequenceAttackEnemy = [];
 let attackEnemy;
 let victoriesEnemy = 0;
+let powerMokeponEnemy;
 
 let btns = [];
 let btnFire;
@@ -254,6 +256,7 @@ function randomNumber(min, max) {
 function selectPlayerMokepon() {
 
   if(inputAudino.checked){
+
     extractDataMokeponSelect(inputAudino.id);
   } else if(inputBellossom.checked) {
     extractDataMokeponSelect(inputBellossom.id);
@@ -266,7 +269,7 @@ function selectPlayerMokepon() {
   } else if(inputCharmander.checked){
     extractDataMokeponSelect(inputCharmander.id);
   } else {
-    alert('Debes seleccionar una mascota');
+    alert('Debes seleccionar un Mokepon');
     return;
   }
 
@@ -282,6 +285,83 @@ function extractDataMokeponSelect(inputSelect) {
   mokeponPlayer = mokepons.find(mokepon => mokepon.name == inputSelect);
   mokeponPlayer.state = true;
   livesPetPlayer = mokeponPlayer.live;
+}
+
+function selectEnemyPet() {
+  mokeponEnemy = mokepons[randomNumber(min, max)];
+  livesPetEnemy = mokeponEnemy.live;
+  enemyNamePet.innerText = mokeponEnemy.name;
+  spanLivesPetEnemy.innerText = livesPetEnemy;
+  checkingPowerMokepons();
+}
+
+function checkingPowerMokepons(){
+  powerMokeponPlayer = mokeponPlayer.type;
+  powerMokeponEnemy = mokeponEnemy.type;
+  if(powerMokeponPlayer === powerMokeponEnemy){
+    showAttackPlayer();
+  } else {
+    addAttackPlayer();
+    //addAttackEnemy();
+  }
+}
+
+function addAttackPlayer(){
+  if(powerMokeponPlayer === 'fire' && powerMokeponEnemy === 'earth'){
+    mokeponPlayer.attacks.push(
+      {
+        id: 'button-fire',
+        name: '🔥'
+      }
+    );
+    showAttackPlayer();
+  } else if(powerMokeponPlayer === 'water' && powerMokeponEnemy === 'fire'){
+    mokeponPlayer.attacks.push(
+      {
+        id: 'button-water',
+        name: '🌊'
+      }
+    );
+    showAttackPlayer();
+  } else if(powerMokeponPlayer === 'earth' && powerMokeponEnemy === 'water'){
+    mokeponPlayer.attacks.push(
+      {
+        id: 'button-earth',
+        name: '🌎'
+      }
+    );
+    showAttackPlayer();
+  } else {
+    addAttackEnemy();
+  }
+
+}
+
+function addAttackEnemy(){
+  if(powerMokeponEnemy === 'fire' && powerMokeponPlayer === 'earth'){
+    mokeponEnemy.attacks.push(
+      {
+        id: 'button-fire',
+        name: '🔥'
+      }
+    )
+  } else if(powerMokeponEnemy === 'water' && powerMokeponPlayer === 'fire'){
+    mokeponEnemy.attacks.push(
+      {
+        id: 'button-water',
+        name: '🌊'
+      }
+    )
+  } else if(powerMokeponEnemy === 'earth' && powerMokeponPlayer === 'water'){
+    mokeponEnemy.attacks.push(
+      {
+        id: 'button-earth',
+        name: '🌎'
+      }
+    )
+  } else {
+    alert('El poder del mokepon no existe');
+  }
 
   showAttackPlayer();
 }
@@ -302,14 +382,6 @@ function showAttackPlayer() {
 
   btns = document.querySelectorAll('.button-attack');
 
-}
-
-function selectEnemyPet() {
-  mokeponEnemy = mokepons[randomNumber(min, max)];
-  attacksMokeponEnemy = mokeponEnemy.attacks;
-  livesPetEnemy = mokeponEnemy.live;
-  enemyNamePet.innerText = mokeponEnemy.name;
-  spanLivesPetEnemy.innerText = livesPetEnemy;
   attackSequence();
 }
 
@@ -336,6 +408,7 @@ function attackSequence() {
 }
 
 function attackRandomEnemy() {
+  attacksMokeponEnemy = mokeponEnemy.attacks;
   let attackRandomMokeponEnemy = attacksMokeponEnemy[randomNumber(min,attacksMokeponEnemy.length -1)];
 
   let updateAttacks = attacksMokeponEnemy.filter((attack) => attack !== attackRandomMokeponEnemy);
