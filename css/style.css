@@ -3,5 +3,8 @@ main .cards-pets .card-pet img {
 }
 
 main .container-attack .btns-attack {
+  max-width: 750px;
   display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
 }

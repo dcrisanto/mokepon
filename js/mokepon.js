@@ -30,8 +30,7 @@ const containerMessageEnd = document.getElementById('message-end-attack');
 
 let mokepons = [];
 let optionsMokepons;
-let attackPlayer;
-let attackEnemy;
+
 //mokepons
 let inputAudino;
 let inputBellossom;
@@ -39,65 +38,89 @@ let inputBounsweet;
 let inputCelebi;
 let inputChansey;
 let inputCharmander;
-let mokeponPlayer = [];
+
+//mokepon del jugador
+let mokeponPlayer;
+let sequenceAttackPlayer = [];
+let attackPlayer;
 let optionsAttack;
+let victoriesPlayer = 0;
+
+//mokepon del enemigo
+let mokeponEnemy;
+let attacksMokeponEnemy = [];
+let sequenceAttackEnemy = [];
+let attackEnemy;
+let victoriesEnemy = 0;
+
+let btns = [];
 let btnFire;
 let btnWater;
 let btnEarth;
-let attacks = [];
 let livesPetPlayer = 3;
 let livesPetEnemy = 3;
 
 class Mokepon {
-  constructor({name, photo, live, state = false}){
+  constructor({name, photo, live, state = false, type}){
     this.name = name,
     this.photo = photo,
     this.live = live,
     this.state = state,
     this.attacks = []
+    this.type = type
   }
 }
 
-const audino = new Mokepon({name: 'Audino', photo: 'imgs/audino.png', live: 3});
-const bellossom = new Mokepon({name: 'Bellossom', photo: 'imgs/bellossom.png', live: 5});
-const bounsweet = new Mokepon({name: 'Bounsweet', photo: 'imgs/bounsweet.jpg', live: 4, attacks: []});
-const celebi = new Mokepon({name: 'Celebi', photo: 'imgs/celebi.png', live: 5});
-const chansey = new Mokepon({name: 'Chansey', photo: 'imgs/chansey.gif', live: 4});
-const charmander = new Mokepon({name: 'Charmander', photo: 'imgs/charmander.png', live: 5});
+const audino = new Mokepon({name: 'Audino', photo: 'imgs/audino.png', live: 5, type: 'water'});
+const bellossom = new Mokepon({name: 'Bellossom', photo: 'imgs/bellossom.png', live: 5, type: 'earth'});
+const bounsweet = new Mokepon({name: 'Bounsweet', photo: 'imgs/bounsweet.jpg', live: 5, type: 'earth'});
+const celebi = new Mokepon({name: 'Celebi', photo: 'imgs/celebi.png', live: 5, type: 'water'});
+const chansey = new Mokepon({name: 'Chansey', photo: 'imgs/chansey.gif', live: 5, type: 'fire'});
+const charmander = new Mokepon({name: 'Charmander', photo: 'imgs/charmander.png', live: 5, type: 'fire'});
 
 audino.attacks.push(
   {
-    id: 'button-fire',
-    name: '🔥',
-    count: 1
+    id: 'button-water',
+    name: '🌊'
   },
   {
     id: 'button-water',
-    name: '🌊',
-    count: 3
+    name: '🌊'
+  },
+  {
+    id: 'button-water',
+    name: '🌊'
+  },
+  {
+    id: 'button-fire',
+    name: '🔥'
   },
   {
     id: 'button-earth',
-    name: '🌎',
-    count: 1
+    name: '🌎'
   }
 );
 
 bellossom.attacks.push(
   {
     id: 'button-earth',
-    name: '🌎',
-    count: 3 
+    name: '🌎'
+  },
+  {
+    id: 'button-earth',
+    name: '🌎'
+  },
+  {
+    id: 'button-earth',
+    name: '🌎'
   },
   {
     id: 'button-water',
-    name: '🌊',
-    count: 1 
+    name: '🌊'
   },
   {
     id: 'button-fire',
-    name: '🔥',
-    count: 1 
+    name: '🔥'
   }
 
 );
@@ -105,80 +128,96 @@ bellossom.attacks.push(
 bounsweet.attacks.push(
   {
     id: 'button-earth',
-    name: '🌎',
-    count: 3 
+    name: '🌎'
+  },
+  {
+    id: 'button-earth',
+    name: '🌎'
+  },
+  {
+    id: 'button-earth',
+    name: '🌎'
   },
   {
     id: 'button-water',
-    name: '🌊',
-    count: 1 
+    name: '🌊'
   },
   {
     id: 'button-fire',
-    name: '🔥',
-    count: 1 
+    name: '🔥'
   }
 );
 
 celebi.attacks.push(
   {
     id: 'button-water',
-    name: '🌊',
-    count: 3 
+    name: '🌊'
+  },
+  {
+    id: 'button-water',
+    name: '🌊'
+  },
+  {
+    id: 'button-water',
+    name: '🌊'
   },
   {
     id: 'button-earth',
-    name: '🌎',
-    count: 1 
+    name: '🌎'
   },
   {
     id: 'button-fire',
-    name: '🔥',
-    count: 1 
+    name: '🔥'
   }
 );
 
 chansey.attacks.push(
   {
     id: 'button-fire',
-    name: '🔥',
-    count: 3 
+    name: '🔥'
+  },
+  {
+    id: 'button-fire',
+    name: '🔥'
+  },
+  {
+    id: 'button-fire',
+    name: '🔥'
   },
   {
     id: 'button-earth',
-    name: '🌎',
-    count: 1 
+    name: '🌎'
   },
   {
     id: 'button-water',
-    name: '🌊',
-    count: 1 
+    name: '🌊'
   }
 );
 
 charmander.attacks.push(      
   {
     id: 'button-fire',
-    name: '🔥',
-    count: 3 
+    name: '🔥'
+  },
+  {
+    id: 'button-fire',
+    name: '🔥'
+  },
+  {
+    id: 'button-fire',
+    name: '🔥'
   },
   {
     id: 'button-earth',
-    name: '🌎',
-    count: 1 
+    name: '🌎'
   },
   {
     id: 'button-water',
-    name: '🌊',
-    count: 1 
+    name: '🌊'
   }
 );
 
 mokepons.push(audino, bellossom, bounsweet, celebi, chansey, charmander);
-
-audino.attacks.find(attack => {
-    attacks.push(attack.name)
-});
 
 let min = 0;
 let max = mokepons.length - 1;
@@ -212,51 +251,19 @@ function randomNumber(min, max) {
   return result;
 }
 
-function extractDataMokeponSelect(inputSelect) {
-  mokeponPlayer = mokepons.find(mokepon => mokepon.name == inputSelect);
-  mokeponPlayer.state = true;
-  livesPetPlayer = mokeponPlayer.live;
-
-  extractAttack();
-}
-
-function extractAttack() {
-  let attacksMokeponPlayer = mokeponPlayer.attacks;
-  attacksMokeponPlayer.find((attack) => {
-    optionsAttack = `
-    <button class="btn-attack" id=${attack.id}>${attack.name}</button>
-    `
-    containerBtnsAttack.innerHTML += optionsAttack;
-  })
-
-  btnFire = document.getElementById('button-fire');
-  btnWater = document.getElementById('button-water');
-  btnEarth = document.getElementById('button-earth');
-
-  btnFire.addEventListener('click', attackFire);
-  btnWater.addEventListener('click', attackWater);
-  btnEarth.addEventListener('click', attackEarth);
-}
-
 function selectPlayerMokepon() {
 
   if(inputAudino.checked){
-    playerNamePet.innerText = inputAudino.id;
     extractDataMokeponSelect(inputAudino.id);
   } else if(inputBellossom.checked) {
-    playerNamePet.innerText = inputBellossom.id;
     extractDataMokeponSelect(inputBellossom.id);
   } else if(inputBounsweet.checked){
-    playerNamePet.innerText = inputBounsweet.id;
     extractDataMokeponSelect(inputBounsweet.id);
   } else if(inputCelebi.checked){
-    playerNamePet.innerText = inputCelebi.id;
     extractDataMokeponSelect(inputCelebi.id);
   } else if(inputChansey.checked){
-    playerNamePet.innerText = inputChansey.id;
     extractDataMokeponSelect(inputChansey.id);
   } else if(inputCharmander.checked){
-    playerNamePet.innerText = inputCharmander.id;
     extractDataMokeponSelect(inputCharmander.id);
   } else {
     alert('Debes seleccionar una mascota');
@@ -270,59 +277,129 @@ function selectPlayerMokepon() {
   
 }
 
+function extractDataMokeponSelect(inputSelect) {
+  playerNamePet.innerText = inputSelect;
+  mokeponPlayer = mokepons.find(mokepon => mokepon.name == inputSelect);
+  mokeponPlayer.state = true;
+  livesPetPlayer = mokeponPlayer.live;
+
+  showAttackPlayer();
+}
+
+function showAttackPlayer() {
+  let attacksMokeponPlayer = mokeponPlayer.attacks;
+
+  attacksMokeponPlayer.find((attack) => {
+    optionsAttack = `
+    <button class="btn-attack button-attack" id=${attack.id}>${attack.name}</button>
+      ` 
+    containerBtnsAttack.innerHTML += optionsAttack;    
+  });
+
+  btnFire = document.getElementById('button-fire');
+  btnWater = document.getElementById('button-water');
+  btnEarth = document.getElementById('button-earth');
+
+  btns = document.querySelectorAll('.button-attack');
+
+}
+
 function selectEnemyPet() {
-  let petSelectRandom = mokepons[randomNumber(min, max)];
-  livesPetEnemy = petSelectRandom.live;
-  enemyNamePet.innerText = petSelectRandom.name;
+  mokeponEnemy = mokepons[randomNumber(min, max)];
+  attacksMokeponEnemy = mokeponEnemy.attacks;
+  livesPetEnemy = mokeponEnemy.live;
+  enemyNamePet.innerText = mokeponEnemy.name;
   spanLivesPetEnemy.innerText = livesPetEnemy;
+  attackSequence();
 }
 
-function attackFire(){
-  attackPlayer = attacks[0];
-  attackRandomEnemy();
-}
-
-function attackWater() {
-  attackPlayer = attacks[1];
-  attackRandomEnemy();
-}
-
-function attackEarth() {
-  attackPlayer = attacks[2];
-  attackRandomEnemy();
+function attackSequence() {
+  btns.forEach((btn) => {
+    btn.addEventListener('click', (e) => {
+      let buttonText = e.target.textContent;
+      if(buttonText == '🔥'){
+        sequenceAttackPlayer.push('FUEGO 🔥');
+        btn.style.background = '#3D1766';
+        btn.disabled = true;
+      } else if(buttonText == '🌊'){
+        sequenceAttackPlayer.push('AGUA 🌊')
+        btn.style.background = '#3D1766';
+        btn.disabled = true;
+      } else {
+        sequenceAttackPlayer.push('TIERRA 🌎')
+        btn.style.background = '#3D1766';
+        btn.disabled = true;
+      }
+      attackRandomEnemy();
+    });
+  })
 }
 
 function attackRandomEnemy() {
-  attackEnemy = attacks[randomNumber(min,attacks.length -1)];
+  let attackRandomMokeponEnemy = attacksMokeponEnemy[randomNumber(min,attacksMokeponEnemy.length -1)];
 
-  combat();
+  let updateAttacks = attacksMokeponEnemy.filter((attack) => attack !== attackRandomMokeponEnemy);
+
+  attacksMokeponEnemy = updateAttacks;
+  
+  if(attackRandomMokeponEnemy.name == '🔥'){
+    sequenceAttackEnemy.push('FUEGO 🔥')
+  } else if(attackRandomMokeponEnemy.name == '🌊'){
+    sequenceAttackEnemy.push('AGUA 🌊')
+  } else {
+    sequenceAttackEnemy.push('TIERRA 🌎')
+  }
+
+  startCombat();
+}
+
+function startCombat(){
+  if(sequenceAttackEnemy.length == 5){
+    combat();
+  }
+  
+}
+
+function attackBothPlayers(player, enemy){
+  attackPlayer = sequenceAttackPlayer[player];
+  attackEnemy = sequenceAttackEnemy[enemy];
 }
 
 function combat() {
   let result;
-
-    if(attackPlayer == attackEnemy){
+  for (let index = 0; index < sequenceAttackPlayer.length; index++) {
+    attackBothPlayers(index, index);
+    if(sequenceAttackPlayer[index] == sequenceAttackEnemy[index]){
       result = 'EMPATASTE';
-    } else if(attackPlayer == attacks[0] && attackEnemy == attacks[2]){
-      result = 'GANASTE';
+      createMessages(result);
+    }
+    else if(sequenceAttackPlayer[index] == 'FUEGO 🔥' && sequenceAttackEnemy[index] == 'TIERRA 🌎'){
+      result = 'GANASTE'; 
+      createMessages(result);
       livesPetEnemy--;
-    } else if(attackPlayer == attacks[1] && attackEnemy == attacks[0]){
+      victoriesPlayer++;
+    } else if(sequenceAttackPlayer[index] == 'AGUA 🌊' && sequenceAttackEnemy[index] == 'FUEGO 🔥'){
       result = 'GANASTE';
+      createMessages(result);
       livesPetEnemy--;
-    } else if(attackPlayer == attacks[2] && attackEnemy == attacks[1]){
+      victoriesPlayer++;
+    } else if(sequenceAttackPlayer[index] == 'TIERRA 🌎' && sequenceAttackEnemy[index] == 'AGUA 🌊'){
       result = 'GANASTE';
+      createMessages(result);
       livesPetEnemy--;
+      victoriesPlayer++;
     } else {
       result = 'PERDISTE';
+      createMessages(result);
       livesPetPlayer--;
+      victoriesEnemy++;
     }
+  }
 
     spanLivesPetPlayer.innerText = livesPetPlayer;
     spanLivesPetEnemy.innerText = livesPetEnemy;
 
-    createMessages(result);
-
-    reviewLives();
+    reviewVictories();
   
 }
 
@@ -341,22 +418,20 @@ function createMessages(result) {
   resultAttack.innerText = result;
 }
 
-function reviewLives() {
-  if(livesPetPlayer == 0){
+function reviewVictories() {
+  if(victoriesPlayer < victoriesEnemy){
     messageEnd('LO SIENTO PERDISTE');
     containerMessageEnd.style.display = 'flex';
-  } else if(livesPetEnemy == 0){
+  } else if(victoriesPlayer > victoriesEnemy){
     messageEnd('FELICITACIONES GANASTE');
     containerMessageEnd.style.display = 'flex';
+  } else {
+    messageEnd('QUEDARON EMPATADOS')
   }
 }
 
 function messageEnd(result) {
-  btnPet.disabled = true;
-  btnFire.disabled = true;
-  btnWater.disabled = true;
-  btnEarth.disabled = true;
-  containerMessageEnd.innerText = `¡${result} EL JUEGO!`;
+  containerMessageEnd.innerText = `¡${result}!`;
   sectionRestart.classList.add('show');
 }
 
